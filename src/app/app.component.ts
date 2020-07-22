@@ -65,6 +65,7 @@ export class AppComponent {
         ciudad: ['', Validators.required],
       }),
       amigos: this.fb.array([]),
+      familiar: this.fb.array([]),
     });
   }
 
@@ -79,6 +80,18 @@ export class AppComponent {
         ciudad: 'LIMA',
       },
     });
+  }
+
+  createNewForm() {
+    this.fb.group({
+      nombre: [''],
+      edad: [''],
+    });
+  }
+
+  addOne() {
+    const forma = this.personalForm.get('familiar') as FormArray;
+    // forma.push(this.createNewForm());
   }
 
   deleteData() {
