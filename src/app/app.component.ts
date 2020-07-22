@@ -63,6 +63,23 @@ export class AppComponent {
     });
   }
 
+  setInitialData() {
+    //COLCOAR VALORES AL FORM
+    this.personalForm.setValue({
+      nombre: 'Juan',
+      apellido: 'Sanchez',
+      correo: 'test@gmail.com',
+      direccion: {
+        distrito: 'LIMA',
+        ciudad: 'LIMA',
+      },
+    });
+  }
+
+  deleteData() {
+    this.personalForm.reset();
+  }
+
   guardarUsuario() {
     console.log(this.personalForm.value);
     if (this.personalForm.invalid) {
