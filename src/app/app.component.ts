@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,10 @@ export class AppComponent {
 
   constructor(private fb: FormBuilder) {
     this.createForm();
+  }
+
+  get amigos() {
+    return this.personalForm.get('amigos') as FormArray;
   }
 
   get NombreNoValido() {
@@ -60,6 +64,7 @@ export class AppComponent {
         distrito: ['', Validators.required],
         ciudad: ['', Validators.required],
       }),
+      amigos: this.fb.array([]),
     });
   }
 
@@ -80,6 +85,15 @@ export class AppComponent {
     this.personalForm.reset();
   }
 
+  addFriend() {
+    let form = this.personalForm.get('amigos') as FormArray;
+    form.push(this.fb.control(['Nuevo']));
+  }
+  deleteFriend(i: number) {
+    let form = this.personalForm.get('amigos') as FormArray;
+    form.removeAt(i);
+  }
+
   guardarUsuario() {
     console.log(this.personalForm.value);
     if (this.personalForm.invalid) {
@@ -92,5 +106,6 @@ export class AppComponent {
         control.markAsTouched();
       });
     }
+    this.personalForm.reset();
   }
 }

@@ -86,6 +86,44 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Opcion</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="amigos">
+          <tr *ngFor="let control of amigos.controls; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <input type="text" class="form-control" [formControlName]="i" />
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="deleteFriend(i)"
+              >
+                Borrar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button
+        class="btn btn-warning my-4 btn-block"
+        type="button"
+        (click)="addFriend()"
+      >
+        Agregar nuevo amigo
+      </button>
+    </div>
+  </div>
+
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col">
