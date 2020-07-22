@@ -31,8 +31,22 @@ export class AppComponent {
 
   get CorreoNoValido() {
     return (
-      this.personalForm.get('correo').valid &&
+      this.personalForm.get('correo').invalid &&
       this.personalForm.get('correo').touched
+    );
+  }
+
+  get DistritoNoValido() {
+    return (
+      this.personalForm.get('direccion.distrito').invalid &&
+      this.personalForm.get('direccion.distrito').touched
+    );
+  }
+
+  get CiudadNoValida() {
+    return (
+      this.personalForm.get('direccion.ciudad').invalid &&
+      this.personalForm.get('direccion.ciudad').touched
     );
   }
 
@@ -48,12 +62,18 @@ export class AppComponent {
       }),
     });
   }
+
   guardarUsuario() {
     console.log(this.personalForm.value);
     if (this.personalForm.invalid) {
-      return Object.values(this.personalForm.controls).map((control) =>
-        control.markAsTouched()
-      );
+      return Object.values(this.personalForm.controls).map((control) => {
+        if (control instanceof FormGroup) {
+          Object.values(control.controls).map((control) => {
+            control.markAsTouched();
+          });
+        }
+        control.markAsTouched();
+      });
     }
   }
 }
